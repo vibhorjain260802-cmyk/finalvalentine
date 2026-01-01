@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ffb3b3, #ffd6cc);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Center wrapper */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card */
+.card {
+  background: white;
+  width: 600px;
+  max-width: 96%;
+  max-height: 85vh;
+  padding: 45px;
+  border-radius: 36px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  overflow-y: auto;   /* ✅ SCROLL ENABLED */
+}
+
+/* Headings */
+h1 {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ff3b6f;
+}
+
+/* Beating heart */
+.heart {
+  font-size: 3.4rem;
+  margin: 20px 0;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+}
+
+/* Text */
+p {
+  font-size: 1.4rem;
+  color: #555;
+  margin: 18px 0;
+  line-height: 1.7;
+}
+
+.proposal {
+  color: #ff3b6f;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Buttons */
+button {
+  padding: 16px 38px;
+  margin: 14px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  background: #ff3b6f;
+  color: white;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+button.secondary {
+  background: #f6a5b5;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+/* Countdown */
+#countdown {
+  margin-top: 18px;
+  font-size: 1.25rem;
+  color: #777;
+}
+
+/* Second page hidden */
+#final {
+  display: none;
+}
+
+/* Final bold text */
+.final-text {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ff3b6f;
+  margin: 22px 0;
+}
+
+/* Animated love text */
+#loveAnim {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #ff3b6f;
+  margin: 22px 0;
+  animation: floatGlow 3s infinite ease-in-out;
+}
+
+@keyframes floatGlow {
+  0% {
+    transform: translateY(0);
+    text-shadow: 0 0 8px #ff7aa2;
+  }
+  50% {
+    transform: translateY(-10px);
+    text-shadow: 0 0 25px #ff3b6f;
+  }
+  100% {
+    transform: translateY(0);
+    text-shadow: 0 0 8px #ff7aa2;
+  }
+}
+
+/* Image container */
+.photo-container {
+  margin-top: 30px;
+  opacity: 0;
+  transition: opacity 2.5s ease;
+}
+
+/* Image itself */
+.photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+  display: block;
+}
+
+/* Show image */
+.photo.show {
+  opacity: 1;
+}
+
+/* Falling petals */
+.petal {
+  position: fixed;
+  top: -60px;
+  width: 42px;
+  height: 42px;
+  background-image: url("petal.png");
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="wrapper" id="main">
+  <div class="card">
+    <h1>Hey My Princess ❤️</h1>
+
+    <div class="heart">💖</div>
+
+    <p>
+      Loving you feels natural, effortless,<br>
+      like my heart always knew where it belonged.
+    </p>
+
+    <p>
+      When I am with you every ordinary moment is magical.
+    </p>
+
+    <p class="proposal">
+      Will you be my Valentine this Valentine’s Day? 🌹
+    </p>
+
+    <button onclick="goNext()">Yes, always 💖</button>
+    <button class="secondary" onclick="goNext()">Of course 🥰</button>
+
+    <div id="countdown"></div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="wrapper" id="final">
+  <div class="card">
+    <div class="heart">💖</div>
+
+    <div class="final-text">
+      Yayyyyyyyy,<br>
+      See you on our date my forever ❤️
+    </div>
+
+    <div id="loveAnim">
+      I love you Ms. Niharika Gupta 💖
+    </div>
+
+    <p style="font-weight:700;font-size:1.45rem;">
+      This Valentine’s Day and every day after,<br>
+      I choose you.
+    </p>
+
+    <!-- Image with scroll support -->
+    <div class="photo">
+      <img src="us.jpeg" alt="Us Together">
+    </div>
+  </div>
+</div>
+
+<script>
+function goNext() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("final").style.display = "flex";
+  startPetals();
+
+  /* Image fade in after 3 seconds */
+  setTimeout(() => {
+    document.querySelector(".photo").classList.add("show");
+  }, 3000);
+}
+
+/* Falling petals */
+function startPetals() {
+  setInterval(() => {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.left = Math.random() * window.innerWidth + "px";
+    petal.style.animationDuration = (6 + Math.random() * 4) + "s";
+    document.body.appendChild(petal);
+    setTimeout(() => petal.remove(), 12000);
+  }, 450);
+}
+
+/* Countdown */
+const valentine = new Date("Feb 14, 2026 00:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = valentine - now;
+  if (diff < 0) return;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `⏳ Valentine’s Day in ${days} days ${hrs} hrs ${mins} mins`;
+}, 1000);
+</script>
+
+</body>
+</html>
